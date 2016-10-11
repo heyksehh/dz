@@ -1,0 +1,139 @@
+import re
+import urllib.request
+import time
+import os
+import shutil
+
+def pages_list ():
+    req0 = urllib.request.Request ('http://blag-vesti.ru/novosti/')
+    req = req0
+    i = 1
+    pages = ['http://blag-vesti.ru/novosti/']
+    for i in range (1, 128):
+        with urllib.request.urlopen (req) as response:
+            html = response.read().decode('utf-8')
+        regnext = re.compile ('rel="next" href="(.*/)" />')
+        nextpage = regnext.findall (html)
+        nextlink = nextpage[0]
+        pages.append (nextlink)
+        req  = urllib.request.Request (nextlink)
+        i += 1
+    return pages
+
+def links_list (pages):
+    links = []
+    for p in pages:
+        req = urllib.request.Request (p)
+        with urllib.request.urlopen (req) as response:
+           html = response.read().decode('utf-8')
+        reglink = re.compile ('<a href="(.*?)" rel="bookmark"')
+        findlinks = reglink.findall (html)
+        for fl in findlinks:
+            links.append (fl)
+    return links
+    
+def  get_info (links):
+    i = 1
+    allprep = []
+    for l in links:
+        req = urllib.request.Request (l)
+        with urllib.request.urlopen (req) as response:
+            artic = response.read().decode('utf-8')
+        regtitle = re.compile ('<title>(.*?) - Благодарненские вести</title>')
+        regtext = re.compile ('<p>(.*?)</p>')
+        regdate = re.compile ('<span class="entry-date" title=".*?">(.*?)</span>')
+        regpers = re.compile ('<meta property="article:section" content="(.*?)" />')
+        arttitle = regtitle.findall (artic)
+        arttext = regtext.findall (artic)
+        artdate = regdate.findall (artic)
+        artpers = regpers.findall (artic)
+    
+        new_arttext = []
+        regTag = re.compile('<.*?>')
+        regSpace = re.compile('\s{2,}')
+        for t in arttext:
+            clean_t = regSpace.sub("", t)
+            clean_t = regTag.sub("", clean_t)
+            new_arttext.append(clean_t)
+            
+        arttext1 = new_arttext[:-8]
+        arttextprep = arttext1
+
+        for date in artdate:
+            num = date
+            data = date.split('.')
+            year = data[2]
+            month = data[1]
+        way = "plain\\%s\\%s" % (year, month)    
+        if not os.path.exists (way):
+            os.makedirs (way)
+        way2 = "mystem-plain\\%s\\%s" % (year, month)    
+        if not os.path.exists (way2):
+            os.makedirs (way2)
+        way3 = "mystem-xml\\%s\\%s" % (year, month)    
+        if not os.path.exists (way3):
+            os.makedirs (way3)
+        way4 = "prepare\\%s\\%s" % (year, month)    
+        if not os.path.exists (way4):
+            os.makedirs (way4)
+            
+        path = "%s\\%s\\" % (year, month)
+        name = '.\\plain\\' + path + str (i) + '.txt'
+        fw = open (name, 'w', encoding = 'utf-8')
+        for artp in artpers:
+            if artp.startswith ('Ново'):
+                fw.write ('@au Noname\n')
+            else:
+                fw.write ('@au ' + artp + '\n')
+        for artt in arttitle:
+            fw.write ('@ti ' + artt + '\n')
+        for artd in artdate:
+            fw.write ('@da ' + artd + '\n')
+        fw.write ('@topic' + '\n')
+        fw.write ('@url ' + l+ '\n')
+        for arttex in arttext1:
+            arttex1 = arttex.replace ('&nbsp;', '\n')
+            arttex2 = arttex1.replace ('­', '')
+            fw.write (arttex2.replace ('&#8211;','–') + '\n')
+        fw.close ()
+
+        ft = open ('.\\gazeta.csv', 'a', encoding = 'utf-8')
+        row = '%s\t%s\t\t\t%s\t%s\tпублицистика\t\t\t\t\tнейтральный\tн-возраст\tн-уровень\tрайонная\t%s\tБлагодарненские вести\t\t%s\tгазета\tРоссия\tСтавропольский край\tru' % (name, artp, artt, artd, l, year)
+        ft.write (row + '\n')
+        ft.close()
+        
+        prepname = '.\\prepare\\' + path + str (i) + '.txt'
+        fp = open (prepname, 'w', encoding = 'utf-8')
+        for arttexprep in arttextprep:
+            arttexprep1 = arttexprep.replace ('&nbsp;', '\n')
+            arttexprep2 = arttexprep1.replace ('­', '')
+            fp.write (arttexprep2.replace ('&#8211;','–') + '\n')
+        fp.close ()
+        allprep.append (prepname)
+        
+        i += 1
+        print  (l)
+        time.sleep (2)
+    return (allprep)
+
+def mystem (allprep):
+    for nam in allprep:
+        nam1 = nam
+        nammysp = nam.replace ('prepare', 'mystem-plain')
+        nammysxml = nam1.replace ('prepare', 'mystem-xml')
+
+        os.system ("C:\\Users\\Ксения\\Desktop\\mystem.exe -cid " + nam + ' ' + nammysp)
+        os.system ("C:\\Users\\Ксения\\Desktop\\mystem.exe -cid --format xml " + nam + ' ' + nammysxml)
+
+def delete ():
+    shutil.rmtree('.\\prepare')
+        
+def main ():
+    fun1 = pages_list ()
+    fun2 = links_list (fun1)
+    fun3 = get_info (fun2)
+    fun4 = mystem (fun3)
+    fun5 = delete ()
+    
+if __name__ == '__main__':
+    main() 
