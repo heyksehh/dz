@@ -1,0 +1,39 @@
+﻿<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Статистика</title>
+	   <link href="static/style.css" rel="stylesheet" type="text/css" />
+    </head>
+ <body>
+ <div id="header">
+	<div id="buttons">
+      <a href="" class="but"  title="">Анкета</a>
+      <a href="stats" class="but" title="">Статистика</a>
+      <a href="json"  class="but" title="">json</a>
+      <a href="search"  class="but" title="">Поиск</a>
+      <a href="results" class="but" title="">Результаты поиска</a>
+    </div></div>
+	<div id="content_container">
+		<div id="uppertext"> <div class="upper_mainline"> О глаголах начистоту </div> <div class="lower_mainline"> Типологическая анкета глаголов с семантикой WASH </div> </div>
+	<div id="questionnary">
+	<div id="headline"> Статистика</div>
+	<p>Анкету заполнили уже <b> {{num}} </b> человек.<p>
+	<p>Больше всего человек, <b> {{repl}}</b>, заполнили анкету на следующем(-их) языке(-ах):<br><b>{{statslang}}</b></p>
+	<p><b>Языки, данные по которым у нас уже есть: </b> {{linelang}}</p><br>
+	<p><b>Глаголы для действия, совершаемого с яблоком:</b> {{lineapple}}</p>
+	<p><b>Глаголы для действия, совершаемого с руками:</b> {{linehands}}</p>
+	<p><b>Глаголы для действия, совершаемого с полом:</b> {{linefloor}}</p>
+	<p><b>Глаголы для действия, совершаемого с зубами:</b> {{lineteeth}}</p>
+	<p><b>Глаголы для действия, совершаемого с волосами:</b> {{linehair}}</p>
+	<p><b>Глаголы для действия, совершаемого с лицом:</b> {{lineface}}</p>
+	<p><b>Глаголы для действия, совершаемого с окном:</b> {{linewindow}}</p>
+	<p><b>Глаголы для действия, совершаемого с комнатой:</b> {{lineroom}}</p>
+	<p><b>Глаголы для действия, совершаемого с посудой:</b> {{linedishes}}</p>
+	<p><b>Глаголы для действия, совершаемого с телом:</b> {{linebody}}</p>
+	<p><b>Глаголы для действия, совершаемого с одеждой:</b> {{lineclothes}}</p>
+	
+	</div>
+	</div>
+	
+ </body>
+ </html>

@@ -1,0 +1,49 @@
+﻿<html>
+    <head>
+       <meta charset="utf-8">
+       <title>О глаголах начистоту</title>
+	   <link href="static/style.css" rel="stylesheet" type="text/css" />
+    </head>
+ <body>
+ <div id="header">
+	<div id="buttons">
+      <a href="" class="but"  title="">Анкета</a>
+      <a href="stats" class="but" title="">Статистика</a>
+      <a href="json"  class="but" title="">json</a>
+      <a href="search"  class="but" title="">Поиск</a>
+      <a href="results" class="but" title="">Результаты поиска</a>
+    </div></div>
+	<div id="content_container">
+		<div id="uppertext"> <div class="upper_mainline"> О глаголах начистоту </div> <div class="lower_mainline"> Типологическая анкета глаголов с семантикой WASH </div> </div>
+	<div id="questionnary">
+	<form action="/stats">
+		<p><b>Носителем какого языка вы являетесь?</b> <input type="text" name="language" value=""></p>
+		<p>Сейчас вам нужно будет ввести в поля глаголы, которыми вы бы описали действие, изображённое на картинке.<p>
+		<p>1.</p><img src="{{url_for('static', filename='apple.jpg')}}" />
+		<p><b>Картинка 1</b> <input type="text" name="apple" value=""></p>
+		<p>2.</p><img src="{{url_for('static', filename='hands.jpg')}}" />
+		<p><b>Картинка 2</b> <input type="text" name="hands" value=""></p>
+		<p>3.</p><img src="{{url_for('static', filename='floor.jpg')}}" />
+		<p><b>Картинка 3</b> <input type="text" name="floor" value=""></p>
+		<p>4.</p><img src="{{url_for('static', filename='teeth.jpg')}}" />
+		<p><b>Картинка 4</b> <input type="text" name="teeth" value=""></p>
+		<p>5.</p><img src="{{url_for('static', filename='hair.jpg')}}" />
+		<p><b>Картинка 5</b> <input type="text" name="hair" value=""></p>
+		<p>6.</p><img src="{{url_for('static', filename='room.jpg')}}" />
+		<p><b>Картинка 6</b> <input type="text" name="room" value=""></p>
+		<p>7.</p><img src="{{url_for('static', filename='body.jpg')}}" />
+		<p><b>Картинка 7</b> <input type="text" name="body" value=""></p>
+		<p>8.</p><img src="{{url_for('static', filename='window.jpg')}}" />
+		<p><b>Картинка 8</b> <input type="text" name="window" value=""></p>
+		<p>9.</p><img src="{{url_for('static', filename='face.jpg')}}" />
+		<p><b>Картинка 9</b> <input type="text" name="face" value=""></p>
+		<p>10.</p><img src="{{url_for('static', filename='clothes.jpg')}}" />
+		<p><b>Картинка 10</b> <input type="text" name="clothes" value=""></p>
+		<p>11.</p><img src="{{url_for('static', filename='dishes.jpg')}}" />
+		<p><b>Картинка 11</b> <input type="text" name="dishes" value=""></p>
+		<p><input type="submit" value="Отправить!"> </p>
+	</form>
+	</div>
+	</div>
+ </body>
+ </html>
