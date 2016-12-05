@@ -19,7 +19,7 @@ def texts (links):
             words0 = line.split ()
             for word in words0:
                 word0 = word.lower ()
-                word1 = word0.strip('—–-…№&,./"<>=\«»:;!?()0123456789')
+                word1 = word0.strip('—–-…№&,./"<>=\«»:;!?()[]0123456789')
                 if '>' in word1:
                     word1 = ''
                 if '=' in word1:
@@ -49,9 +49,6 @@ def mnozh (array):
     for word in set_com:
         f1.write (word + '\n')
     f1.close ()
-
-    print (set_com)
-
 
     s1 = set2 | set3 
     s2 = set1 | set3 
