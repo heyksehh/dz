@@ -1,0 +1,111 @@
+<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Редактирование расписания</title>
+    </head>
+ <body>
+<p><b> Внесите нужные параметры </b></p>
+<p> Текущий режим: <i> 
+{% if mode == 'add' %} Добавление {% endif %}
+{% if mode == 'edit' %} Изменение {% endif %}
+{% if mode == 'delete' %} Удаление {% endif %}</i></p>
+
+<hr></hr>
+<form action="/done">
+{% if mode == 'add' %}
+<input type="hidden" name="mode" value="add">
+<p>День недели: <select name="weekday">
+	{% for i in days %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+    {% endfor %} </select></p>
+<p>Время: <select name="class_time">
+	{% for i in times %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+    {% endfor %} </select></p>
+<p>Аудитория: <select name="room_name">
+	{% for i in rooms %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+    {% endfor %} </select></p>
+<p>Группа: <select name="group_name">
+	{% for i in groups %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+    {% endfor %} </select></p>
+<p>Преподаватель: <select name="prof_name">
+	{% for i in profs %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+    {% endfor %} </select></p>
+<p>Дисциплина: <select name="class_name">
+	{% for i in disciplines %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+    {% endfor %} </select></p>
+<p>Тип занятия: <select name="class_type">
+	{% for i in types %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+    {% endfor %} </select></p>
+{% endif %}
+
+{% if mode == 'edit' %}
+<input type="hidden" name="mode" value="edit">
+<input type="hidden" name="class_id" value="{{current_class}}">
+<p>День недели: <select name="weekday">
+	{% for i in days %}
+	{% if i[0]==current_class_data[1] %}
+	<option value="{{ i[0] }}" selected>{{ i[1] }}</option>
+	{% else %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+	{% endif %}
+    {% endfor %} </select></p>
+<p>Время: <select name="class_time">
+	{% for i in times %}
+	{% if i[0]==current_class_data[2] %}
+	<option value="{{ i[0] }}" selected>{{ i[1] }}</option>
+	{% else %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+	{% endif %}
+    {% endfor %} </select></p>
+<p>Аудитория: <select name="room_name">
+	{% for i in rooms %}
+	{% if i[0]==current_class_data[4] %}
+	<option value="{{ i[0] }}" selected>{{ i[1] }}</option>
+	{% else %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+	{% endif %}
+    {% endfor %} </select></p>
+<p>Группа: <select name="group_name">
+	{% for i in groups %}
+	{% if i[0]==current_class_data[3] %}
+	<option value="{{ i[0] }}" selected>{{ i[1] }}</option>
+	{% else %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+	{% endif %}
+    {% endfor %} </select></p>
+<p>Преподаватель: <select name="prof_name">
+	{% for i in profs %}
+	{% if i[0]==current_class_data[5] %}
+	<option value="{{ i[0] }}" selected>{{ i[1] }}</option>
+	{% else %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+	{% endif %}
+    {% endfor %} </select></p>
+<p>Дисциплина: <select name="class_name">
+	{% for i in disciplines %}
+	{% if i[0]==current_class_data[6] %}
+	<option value="{{ i[0] }}" selected>{{ i[1] }}</option>
+	{% else %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+	{% endif %}
+    {% endfor %} </select></p>
+<p>Тип занятия: <select name="class_type">
+	{% for i in types %}
+	{% if i[0]==current_class_data[7] %}
+	<option value="{{ i[0] }}" selected>{{ i[1] }}</option>
+	{% else %}
+	<option value="{{ i[0] }}">{{ i[1] }}</option>
+	{% endif %}
+    {% endfor %} </select></p>
+{% endif %}
+<input type="submit" value="Подтвердить"/>
+</form>
+	
+ </body>
+ </html>

@@ -1,0 +1,19 @@
+<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Расписание занятий</title>
+    </head>
+ <body>
+<p><b>Что вы хотели бы сделать?</b></p>
+
+<form action="/check">
+<p><input type="submit" value="Узнать или редактировать расписание"></p>
+</form>
+
+<form id="updateform" action="/edit"> 
+<p><input type="hidden" name="mode_form" value="add">
+<input type="submit" value="Добавить запись"/></p> 
+</form>
+
+ </body>
+ </html>

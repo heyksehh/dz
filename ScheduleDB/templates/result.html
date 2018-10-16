@@ -1,0 +1,33 @@
+<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Расписание занятий</title>
+    </head>
+ <body>
+<p><b>Результат поиска</b></p>
+<p>Группа: <i>{{ group_name }}</i></p>
+<p>День недели: <i>{{ day_name }}</i></p>
+
+<hr></hr>
+{% if all_classes == [] %}
+	<p align="center"> Нет занятий. </p>
+{% else %}
+	<table border="1" align="center" cellpadding="6">
+	<tr>
+		<th>Номер пары</th>
+		<th>Время</th>
+		<th>Аудитория</th>
+		<th>Дисциплина</th>
+		<th>Вид занятия</th>
+		<th>Преподаватель</th>
+		<th>Удалить</th>
+		<th>Редактировать</th>
+	</tr>
+		{% for i in all_classes %}
+			<tr><td><b>{{ i[0] }}</b></td><td>{{ i[1] }}</td><td>{{ i[2] }}</td><td>{{ i[3] }}</td><td>{{ i[4] }}</td><td>{{ i[5] }}</td><td><a href="/done?mode=delete&class_id={{ i[6] }}">Удалить</a></td><td><a href="/edit?mode_form=edit&class_id={{ i[6] }}">Редактировать</a></td></tr>
+		{% endfor %}
+	</table>
+{% endif %}
+<p><a href="/">Вернуться на главную</a></p>
+ </body>
+ </html>
