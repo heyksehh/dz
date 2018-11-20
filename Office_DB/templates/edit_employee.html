@@ -1,0 +1,26 @@
+﻿<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Редактировать информацию о сотруднике</title>
+    </head>
+ <body>
+<p><b>Изменить профиль сотрудника<b></p>
+
+<form action="/update_employee">
+<input type="hidden" name="emp_id" value="{{ emp_id }}">
+<p>Имя: <input type=text name="new_name" value="{{ emp_info[0]['emp_name'] }}"></p>
+<p>Должность: <input type=text name="new_job" value="{{ emp_info[0]['emp_job'] }}"></p>
+<p>Отдел: <select name="new_dep">
+	{% for i in deps %}
+		{% if i['dep_id']==emp_info[0]['emp_dep'] %}
+			<option value="{{ i['dep_id'] }}" selected>{{ i['dep_name'] }}</option>
+		{% else %}
+			<option value="{{ i['dep_id'] }}">{{ i['dep_name'] }}</option>
+		{% endif %}
+    {% endfor %}
+	</select></p>
+<p><input type="submit" value="Сохранить информацию о сотруднике"></p>
+</form>
+
+ </body>
+ </html>

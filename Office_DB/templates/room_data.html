@@ -1,0 +1,61 @@
+﻿<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Информация о кабинете</title>
+    </head>
+ <body>
+<h3>Результат поиска</h3>
+<p><b>№ кабинета: </b>{{ res[0]['room_name'] }}</p>
+<p><b>Этаж: </b>{{ res[0]['room_floor'] }}</p>
+
+<hr></hr>
+
+{% if res[0]['place_id'] == None %}
+	<p align="center"> В данном кабинете нет рабочих мест. </p>
+{% else %}
+	<table border="1" align="center" cellpadding="6">
+	<tr>
+		<th>Рабочее место</th>
+		<th>Сотрудник</th>
+		<th>Должность</th>
+		<th>Отдел</th>
+		<th>Редактировать</th>
+	</tr>
+		{% for i in res %}
+			<tr><td><b>{{ i['place_name'] }}</b></td>
+			<td>{{ i['emp_name'] }}</td>
+			<td>{{ i['emp_job'] }}</td>
+			<td>{{ i['dep_name'] }}</td>
+			<td>
+			{% if i['emp_name'] != None %}
+			<p><a href="/delete_place?place_id={{ i['place_id'] }}">Удалить рабочее место</a></p>
+			<p><a href="/delete_assignment?ass_id={{ i['ass_id'] }}">Удалить сотрудника с места</a></p>
+			{% else %}
+			<p><a href="/delete_place?place_id={{ i['place_id'] }}">Удалить рабочее место</a></p>
+			<p><form action="/assign_emp">
+				<select name="emp_id"></p>
+				{% for emp in free_emps %}
+				<option value="{{ emp['emp_id'] }}">{{ emp['emp_name'] }}</option>
+				{% endfor %}
+				</select>	
+				<input type="hidden" name="place_id" value="{{ i[ 'place_id'] }}">
+				<p><input type="submit" value="Назначить на место"/></p></form>
+				</td></tr>
+			{% endif %}
+		{% endfor %}
+	</table>
+{% endif %}
+
+<hr></hr>
+
+<p><b>Создать новое рабочее место в этом кабинете</b></p>
+	<p><form action="/create_place">
+	<input type="hidden" name="room_id" value="{{ room_id_str }}">
+	<p> Введите название рабочего места: <input name="new_place" type="text" placeholder="Стол №Х"></p>
+	<p><input type="submit" value="Создать"></p>	
+	</form></p>
+
+	
+<p><a href="/">Вернуться на главную</a></p>
+ </body>
+ </html>

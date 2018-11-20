@@ -1,0 +1,19 @@
+﻿<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Информация о сотруднике</title>
+    </head>
+ <body>
+ 
+<h3>{{ res['emp_name']}}</h3>
+<p><b>Отдел: </b>{{ res['dep_name'] }}</p>
+<p><b>Должность: </b>{{ res['emp_job'] }}</p>
+<p><b>Этаж: </b>{{ res['room_floor'] }}</p>
+<p><b>Кабинет: </b>{{ res['room_name'] }}</p>
+<p><b>Рабочее место: </b>{{ res['place_name'] }}</p>
+
+<p><a href="/edit_employee?emp_id={{ emp_id_str }}">Редактировать информацию о сотруднике</a></p>
+<p><a href="/delete_employee?emp_id={{ emp_id_str }}">Удалить сотрудника</a></p> 
+
+ </body>
+ </html>

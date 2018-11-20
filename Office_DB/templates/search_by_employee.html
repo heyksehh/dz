@@ -1,0 +1,19 @@
+﻿<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Поиск по сотруднику</title>
+    </head>
+ <body>
+<p><b>Пожалуйста, выберите сотрудника</b></p>
+
+    <p><select form="aform" name="emp_form">
+    {% for i in emps %}
+	<option value="{{ i['emp_id'] }}">{{ i['emp_name'] }}</option>
+    {% endfor %}
+	</select></p>
+   
+	<p><form id="aform" action="/employee_data">
+		<input type="submit" value="Выбрать"/>
+	</form></p>
+ </body>
+ </html>

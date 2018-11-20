@@ -1,0 +1,21 @@
+﻿<html>
+    <head>
+       <meta charset="utf-8">
+       <title>Новый сотрудник</title>
+    </head>
+ <body>
+<p><b>Пожалуйста, заполните анкету нового сотрудника</b></p>
+
+    <form action = "/save_emp">
+	<p>ФИО: <input type=text name="name" value=""></p>
+	<p>Должность: <input type=text name="job" value=""></p>
+    <p>Отдел: <select name="dep">
+	{% for i in deps %}
+	<option value="{{ i['dep_id'] }}">{{ i['dep_name'] }}</option>
+    {% endfor %}
+	</select></p>
+	<p><input type="submit" value="Добавить сотрудника"></p>
+	</form>
+	
+ </body>
+ </html>
